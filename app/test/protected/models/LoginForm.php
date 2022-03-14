@@ -44,7 +44,7 @@ class LoginForm extends CFormModel {
   
   public function twofaCode($attribute, $params) {
     if(!$this->hasErrors()) {
-      $user = new User();
+      $user = new UserManager();
       $userData = $user->findUserByLogin($this->username)->read();
       if (
           !empty($userData['twofa_state'])

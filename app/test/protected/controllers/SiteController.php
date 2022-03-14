@@ -129,7 +129,7 @@ class SiteController extends Controller
       $model->attributes=$_POST['Setup2faForm'];
       // validate user input and redirect to the previous page if valid
       if ($model->validate()) {
-        (new User())->updateTwofaState(Yii::app()->user->getId(), $model->require2Fa);
+        Yii::app()->userManager->updateTwofaState(Yii::app()->user->getId(), $model->require2Fa);
       }
     }
     // display the login form
@@ -156,8 +156,7 @@ class SiteController extends Controller
       $model->attributes=$_POST['SignupForm'];
       // validate user input and redirect to the previous page if valid
       if ($model->validate()) {
-        $user = new User();
-        $user->createUser($model->username, $model->password);
+        Yii::app()->userManager->createUser($model->username, $model->password);
         Yii::app()->user->login(new UserIdentity($model->username, $model->password));
         if ($model->require2Fa) {
           $this->redirect($this->createUrl('site/setup2fa'));

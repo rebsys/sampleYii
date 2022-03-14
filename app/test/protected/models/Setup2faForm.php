@@ -14,18 +14,16 @@ class Setup2faForm extends CFormModel {
   public $google2faImgBase64;
   public $require2Fa;
   
-  protected $user;
   private $_id;
   
   public function __construct($scenario = '') {
     parent::__construct($scenario);
-    $this->user = new User();
     $this->_id = Yii::app()->user->getId();
     
-    $userData = $this->user->findUserByLogin($this->_id)->read();
+    $userData = Yii::app()->userManager->findUserByLogin($this->_id)->read();
     $this->require2Fa = $userData['twofa_state'];
     if (empty($userData['twofa_key'])) {
-      $this->google2faKey = $this->user->updateTwofaKey($this->_id);
+      $this->google2faKey = Yii::app()->userManager->updateTwofaKey($this->_id);
     } else {
       $this->google2faKey = $userData['twofa_key'];
     }
@@ -64,7 +62,7 @@ class Setup2faForm extends CFormModel {
   
   public function google2faCheck($attribute, $param) {
     if (!$this->hasErrors()) {
-      if (!$this->user->checkTwofaCode($this->_id, $this->{$attribute})) {
+      if (!Yii::app()->userManager->checkTwofaCode($this->_id, $this->{$attribute})) {
         $this->addError($attribute, 'This code is not correct.');
       }
     }

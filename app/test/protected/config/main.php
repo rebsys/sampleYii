@@ -33,6 +33,7 @@ return array(
 
 	// application components
 	'components'=>array(
+    'userManager' => ['class' => 'UserManager'],
 
 		'user'=>array(
 			// enable cookie-based authentication

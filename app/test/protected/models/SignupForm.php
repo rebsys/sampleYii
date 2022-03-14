@@ -36,8 +36,7 @@ class SignupForm extends CFormModel {
   
   public function usernameUnique($attribute, $params) {
     if (!$this->hasErrors()) {
-      $user = new User();
-      if ($user->findUserByLogin($this->username)->read()) {
+      if (Yii::app()->userManager->findUserByLogin($this->username)->read()) {
         $this->addError('username', 'The username is already exists.');
       }
     }

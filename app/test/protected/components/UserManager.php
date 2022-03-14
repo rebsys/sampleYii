@@ -2,7 +2,7 @@
 
 use PragmaRX\Google2FA\Google2FA;
 
-class User extends CComponent {
+class UserManager extends CComponent {
   
   const createTableSql =
 "create table tbl_user (
@@ -13,7 +13,7 @@ class User extends CComponent {
   twofa_state integer
 )";
 
-  public function __construct() {
+  public function init() {
     $this->initTables();
   }
   

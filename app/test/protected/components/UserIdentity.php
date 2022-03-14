@@ -13,17 +13,11 @@ class UserIdentity extends CUserIdentity
 	 */
 	public function authenticate() {
     $this->errorCode = self::ERROR_NONE;
-    /** @var CDbCommand $command */
-//    $command = Yii::app()->db->createCommand("select id, password from tbl_user where username = :username");
-//    $dataReader = $command->query(['username' => $this->username]);
     try {
-      $user = new User();
-      if (empty($user->findUserByLogin($this->username))) {
+      if (empty(Yii::app()->userManager->findUserByLogin($this->username))) {
         throw new UserIdentityException('User not found', self::ERROR_USERNAME_INVALID);
       }
-//      $passwordHash = $dataReader->read()['password'];
-//      if (!CPasswordHelper::verifyPassword($this->password, $passwordHash)) {
-      if (!$user->checkPassword($this->username, $this->password)) {
+      if (!Yii::app()->userManager->checkPassword($this->username, $this->password)) {
         throw new UserIdentityException('Password not correct', self::ERROR_USERNAME_INVALID);
       }
     } catch (UserIdentityException $e) {
