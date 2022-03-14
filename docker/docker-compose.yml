@@ -1,0 +1,35 @@
+version: '3.3'
+
+services:
+  yii-frontend-nginx:
+    build:
+      context: .
+      dockerfile: ./build/nginx/Dockerfile
+    volumes:
+      - ..:/var/www/html
+    networks:
+      yii.online:
+        aliases:
+          - nginx
+    ports:
+      - 8173:80
+    depends_on:
+      - yii-backend-php
+
+  yii-backend-php:
+    build:
+      context: .
+      dockerfile: ./build/php/Dockerfile
+    environment:
+      APP_ENV: dev
+    volumes:
+      - ..:/var/www/html
+    networks:
+      yii.online:
+        aliases:
+          - php
+#    ports:
+#      - 9010:9000
+
+networks:
+  yii.online:
