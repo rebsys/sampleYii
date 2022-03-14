@@ -29,7 +29,7 @@ services:
         aliases:
           - php
 #    ports:
-#      - 9010:9000
+#      - 9013:9000
 
 networks:
   yii.online:

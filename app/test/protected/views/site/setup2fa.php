@@ -25,10 +25,20 @@ $this->breadcrumbs = array(
 
   <p class="note">Fields with <span class="required">*</span> are required.</p>
   
+  <p>
+    Use this QR code to add a new account to the OTP app.
+  </p>
   <?php echo $model->google2faImgBase64; ?>
   
   <p>
-    <?php echo $model->google2faKey; ?>
+    Or create a new account manually with the secret key:
+    <b>
+      <?php echo $model->google2faKey; ?>
+    </b>
+  </p>
+  
+  <p>
+    Got a new OTP code by the OTP Application and use it for the followed field to verify that authentication with this method works correctly.
   </p>
 
   <div class="row">
@@ -42,7 +52,7 @@ $this->breadcrumbs = array(
   </div>
 
   <div class="row buttons">
-    <?php echo CHtml::submitButton('Enable'); ?>
+    <?php echo CHtml::submitButton('Save changes'); ?>
   </div>
   
   <?php $this->endWidget(); ?>

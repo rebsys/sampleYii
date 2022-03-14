@@ -20,6 +20,18 @@ class SiteController extends Controller
 			),
 		);
 	}
+  
+  public function filters() {
+    return ['accessControl'];
+  }
+  
+  public function accessRules() {
+    return [
+        ['deny',
+            'actions' => ['logout', 'setup2fa'],
+            'users' => ['?']],
+    ];
+  }
 
 	/**
 	 * This is the default 'index' action that is invoked
